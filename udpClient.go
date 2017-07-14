@@ -5,7 +5,7 @@ import (
     "fmt"
     "net"
 //  "io"
-	"encoding/json"
+	// "encoding/json"
 )
 
 type Message struct{
@@ -21,11 +21,12 @@ func main() {
     if err != nil {
         os.Exit(1)  
     }
-    t := Message{Srcid:10, Objid:20, Time:"2012-12-01", Msg:"hello world!"}
+    // t := Message{Srcid:10, Objid:20, Time:"2012-12-01", Msg:"hello world!"}
     // conn.Write([]byte("Hello world!"))  
-    v, _ := json.Marshal(t)
-    fmt.Println(v)
-    conn.Write(v)
+    // v, _ := json.Marshal(t)
+    // fmt.Println(v)
+    // conn.Write(v)
+    conn.Write([]byte(`{"srcid":10, "objid":10}`))
     fmt.Println("send msg")
 
     var msg [20]byte

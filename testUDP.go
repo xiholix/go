@@ -8,8 +8,8 @@ import(
 )
 
 type Message struct{
-    Srcid int
-    Objid int
+    Srcid int  `json:"srcid"`
+    Objid int  `json:"objid"`
     Time string
     Msg string
 }
@@ -23,14 +23,15 @@ func checkError(err error){
 
 func recvUDPMsg(conn *net.UDPConn){
     for{
-        var buf [200]byte
+        var buf [200]byte  // xhl 此处需要固定长度，否则无法解析成功
     
         n, raddr, err := conn.ReadFromUDP(buf[0:])
         if err != nil {
             return  
         }
     t := Message{}
-    json.Unmarshal(buf[0:], &t)
+    // b := buf[0:]
+    json.Unmarshal(buf[0:n], &t) // xhl 此处必须指定n，否则无法解析成功。
     fmt.Printf("%+v\n", t)
     fmt.Println("msg is ", string(buf[0:n]))
 
