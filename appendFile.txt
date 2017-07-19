@@ -1,3 +1,18 @@
-hell
-hello world!
-hello world!
+Logger:logappend.go:15: Hello, log file!
+Logger:logappend.go:15: Hello, log file!
+Logger:2017/07/19 13:30:57 /Users/xie/code/logappend.go:15: Hello, log file!
+Logger:2017/07/19 Hello, log file!
+Logger:2017/07/19 14:06:18 /Users/xie/code/logappend.go:16: Hello, log file!
+Logger:2017/07/19 14:06:18 /Users/xie/code/logappend.go:17: hello world
+Logger:2017/07/19 14:07:50 /Users/xie/code/logappend.go:16: Hello, log file!
+Logger:2017/07/19 14:07:50 /Users/xie/code/logappend.go:22: hello world
+Logger:2017/07/19 14:08:10 /Users/xie/code/logappend.go:16: Hello, log file!
+Logger:2017/07/19 14:08:10 /usr/local/go/src/log/log.go:155: hello world
+Logger:2017/07/19 14:08:37 /Users/xie/code/logappend.go:16: Hello, log file!
+Logger:2017/07/19 14:08:37 /usr/local/go/src/log/log.go:155: hello world
+Logger:2017/07/19 14:08:54 /Users/xie/code/logappend.go:16: Hello, log file!
+Logger:2017/07/19 14:08:54 /usr/local/go/src/runtime/asm_amd64.s:2197: hello world
+Error2017/07/19 14:29:25 /Users/xie/code/logappend.go:17: Hello, log file!
+Error2017/07/19 14:35:05 /Users/xie/code/logappend.go:17: Hello, log file!
+
+hello
