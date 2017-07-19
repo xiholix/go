@@ -12,7 +12,7 @@ func testAppend(){
     a[0] = 1
     a[1] = 2
     a[2] = 3
-    b := a
+    b := a  //b不会改变
     c := &a
     *c = append(*c, 5)
     *c = append(*c, 9)
