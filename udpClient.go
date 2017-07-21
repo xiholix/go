@@ -26,7 +26,14 @@ func main() {
     // v, _ := json.Marshal(t)
     // fmt.Println(v)
     // conn.Write(v)
-    conn.Write([]byte(`{"srcid":10, "objid":10}`))
+    src := ""
+    for i:= 0; i<1000; i++{
+        src += `{"srcid":10, "objid":10}`
+    }
+    _, err = conn.Write([]byte(`{"srcid":10, "objid":10}`))
+    if err!=nil{
+        fmt.Println(err)
+    }
     fmt.Println("send msg")
 
     var msg [20]byte

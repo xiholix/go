@@ -5,6 +5,7 @@ import(
     "fmt"
     "net"
     "encoding/json"
+    // "bytes"
 )
 
 type Message struct{
@@ -22,7 +23,7 @@ func checkError(err error){
 }
 
 func recvUDPMsg(conn *net.UDPConn){
-    for{
+    // for{
         var buf [200]byte  // xhl 此处需要固定长度，否则无法解析成功
     
         n, raddr, err := conn.ReadFromUDP(buf[0:])
@@ -39,9 +40,47 @@ func recvUDPMsg(conn *net.UDPConn){
     //func (c *UDPConn) WriteToUDP(b []byte, addr *UDPAddr) (int, error) 
     _, err = conn.WriteToUDP([]byte("nice to see u"), raddr)
     checkError(err)
-    }
+    // }
     
 }
+
+
+func recvUDPLongMsg(conn *net.UDPConn){
+    for{
+        msgs := []byte{}
+        var buf [4]byte
+        n := 0
+        var err error
+
+        n, raddr, err := conn.ReadFromUDP(buf[0:])
+        // n, raddr, err := conn.ReadFromUDP(buf[0:])
+        if err != nil {
+            return  
+        }
+        fmt.Println(string(buf[0:]))
+        for n!=0{
+            // msgs = append(msgs, buf[0:])
+            copy(msgs, buf[0:])
+            n, raddr, err = conn.ReadFromUDP(buf[0:])
+            fmt.Println(string(buf[0:]))
+        }
+    // newMsg := msgs.Bytes()
+    
+    t := Message{}
+    // b := buf[0:]
+    json.Unmarshal(msgs, &t) // xhl 此处必须指定n，否则无法解析成功。
+    fmt.Printf("\n%+v\n", t)
+    fmt.Println(n)
+    fmt.Println("msg is ", string(msgs))
+
+    //WriteToUDP
+    //func (c *UDPConn) WriteToUDP(b []byte, addr *UDPAddr) (int, error) 
+    _, err = conn.WriteToUDP([]byte("nice to see u"), raddr)
+    checkError(err)
+
+    }
+}
+
 
 func main() {
     udp_addr, err := net.ResolveUDPAddr("udp", ":11110")
