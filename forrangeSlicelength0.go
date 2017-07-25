@@ -10,5 +10,7 @@ func main(){
    }
 
    fmt.Println("hello world")
+   b := map[string]interface{}{"a":1}
+   fmt.Println(b["b"])
 
 }
