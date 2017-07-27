@@ -70,10 +70,23 @@ type Message struct{
     Age  int
 }
 
+func JsonResponse(response http.ResponseWriter, err_num int, data []byte){
+    var resp =make(map[string]interface{})
+    json.Unmarshal(data, &resp)
+    fmt.Println(resp)
+    resp["err_no"] = err_num
+    
+    resp_bytes, _ := json.Marshal(resp)
+    fmt.Println(string(resp_bytes))
+    response.Write(resp_bytes)
+}
+
 func Test_write_struct(w http.ResponseWriter, req *http.Request){
-     a :=[]Message{ Message{Name:"xiehong", Age:22}, Message{Name:"liang", Age:23} }
+     a :=Message{Name:"xiehong", Age:22}
      b, _ := json.Marshal(a)
-     w.Write(b)
+    //  w.Write(b)
+    fmt.Println(string(b))
+    JsonResponse(w, 10, b)
      
 }
 
@@ -95,7 +108,7 @@ func Test_asynchronous(response http.ResponseWriter, request *http.Request){
 
 
 func main(){
-     http.HandleFunc("/hello", Test_asynchronous)
+     http.HandleFunc("/hello", Test_write_struct)
      err := http.ListenAndServe(":12345", nil)
      if err!= nil{
      	log.Fatal("ListenAndServe: ", err)
